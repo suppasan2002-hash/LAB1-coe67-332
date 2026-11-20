@@ -7,35 +7,32 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const AboutMePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class AboutMePage extends StatefulWidget {
+  const AboutMePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<AboutMePage> createState() => _AboutMePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _AboutMePageState extends State<AboutMePage> {
+  int _likes = 0;
 
-  void _incrementCounter() {
+  void _like() {
     setState(() {
-      // setState tells Flutter that something changed, so build() runs again.
-      _counter++;
+      _likes++;
     });
   }
 
@@ -43,25 +40,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Lab L1 - 67111633'),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.person, size: 96),
+            const SizedBox(height: 12),
+            const Text('Mr. Suppasan Natsathan - 67111633'),
+            const SizedBox(height: 8),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'Likes: $_likes',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            FilledButton(
+              onPressed: _like,
+              child: const Text('Like'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
